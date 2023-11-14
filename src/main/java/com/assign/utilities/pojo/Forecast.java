@@ -1,14 +1,13 @@
-package com.assign.utilities.dto;
+package com.assign.utilities.pojo;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class Forecast {
+
     private String day;
     private String temperature;
     private String wind;

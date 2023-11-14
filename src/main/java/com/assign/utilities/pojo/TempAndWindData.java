@@ -1,4 +1,4 @@
-package com.assign.utilities.dto;
+package com.assign.utilities.pojo;
 
 import lombok.*;
 
@@ -8,17 +8,18 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
-public class TempAndWindCityData {
+public class TempAndWindData {
 
-    private String name;
+    private String cityName;
     private String temperature;
     private String wind;
     private String description;
     private List<Forecast> forecast;
 
-    public TempAndWindCityData(String cityName) {
-        this.name = cityName;
+    public TempAndWindData(String cityName) {
+        this.cityName = cityName;
         this.temperature = "";
         this.wind = "";
         this.description = "";
