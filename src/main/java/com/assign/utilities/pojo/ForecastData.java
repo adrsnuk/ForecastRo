@@ -2,7 +2,6 @@ package com.assign.utilities.pojo;
 
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,11 +19,4 @@ public class ForecastData {
     private String description;
     private List<ForecastDay> forecast;
 
-    public ForecastData(String cityName) {
-        this.cityName = cityName;
-        this.temperature = "";
-        this.wind = "";
-        this.description = "";
-        this.forecast = new ArrayList<>();
-    }
 }

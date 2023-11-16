@@ -11,6 +11,7 @@ In urma call-ul vor rezultat doua raspunsuri:
 
 REST: cu orasele ordonate alfabetic si media temperaturii si a vantului
 Exemplu raspuns:
+```json
 {
     "result": [
         {
@@ -45,7 +46,7 @@ Exemplu raspuns:
         }
     ]
 }
-
+```
 CSV: cu orasele ordonate alfabetic si media temperaturii si a vantului (fisierul o sa fie suprascris cu fiecare apel al API-ului)
 Exemplu raspuns:
 Name, temperature, wind
@@ -59,7 +60,7 @@ Timisoara,needs_to_be_determined,needs_to_be_determined
 Se va folosi API-ul urmatorul API pentru determinarea temperaturii si vitezei vantului. 
 API : https://998d8129-2264-4a98-a92e-ba8bde4a4d1c.mock.pstmn.io/{city_name}
 SUCCESS Response (200 status code):
-
+```json
 {
     "temperature": "",
     "wind": "",
@@ -97,17 +98,16 @@ SUCCESS Response (200 status code):
         }
     ]
 }
-
+```
 Daca nu exista data pentru orasul cautat serverul va returna 404 si valorile pentru media temperaturii si a vantului vor ramane empty
 
 # Postman: 
-![postman](https://github.com/adrsnuk/ForecastRo/assets/42378871/4f870e8d-5225-4d8c-971a-4211319b1473)
+![postman](assets/postman.png)
 
 
 # Logs: 
-![improved logs](https://github.com/adrsnuk/ForecastRo/assets/42378871/861ebc6e-8488-4a83-9f9a-e36314734cd1)
-
+![logs](assets/logs.png)
 
 
 # CSV File: 
-![csv file](https://github.com/adrsnuk/ForecastRo/assets/42378871/ca2ba06e-563c-4a2e-90ce-b151d5109569)
+![csv file](assets/csv_file.png)
