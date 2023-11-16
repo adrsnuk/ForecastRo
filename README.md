@@ -105,7 +105,8 @@ Daca nu exista data pentru orasul cautat serverul va returna 404 si valorile pen
 
 
 # Logs: 
-![logs](https://github.com/adrsnuk/ForecastRo/assets/42378871/9b1c1748-8a5b-410c-a6ec-7bffa3b06fd2)
+![improved logs](https://github.com/adrsnuk/ForecastRo/assets/42378871/861ebc6e-8488-4a83-9f9a-e36314734cd1)
+
 
 
 # CSV File: 
