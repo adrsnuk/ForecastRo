@@ -8,7 +8,7 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class AverageForecast {
+public class ForecastAverage {
 
     private String cityName;
     private String temperature;

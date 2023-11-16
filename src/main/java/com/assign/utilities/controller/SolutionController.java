@@ -1,9 +1,9 @@
 package com.assign.utilities.controller;
 
-import com.assign.utilities.pojo.AverageForecast;
-import com.assign.utilities.service.AverageForecastService;
+import com.assign.utilities.client.ForecastClient;
+import com.assign.utilities.pojo.ForecastAverage;
+import com.assign.utilities.service.ForecastAverageCalculatorService;
 import com.assign.utilities.service.ForecastCsvWriterService;
-import com.assign.utilities.service.WindAndTemperatureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -20,23 +20,23 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SolutionController {
 
-    private final WindAndTemperatureService windAndTemperatureService;
+    private final ForecastClient forecastClient;
 
-    private final AverageForecastService averageForecastService;
+    private final ForecastAverageCalculatorService forecastAverageCalculatorService;
 
     private final ForecastCsvWriterService forecastCsvWriterService;
     @GetMapping("/weather")
-    public Mono<List<AverageForecast>> computeWeatherByCities(@RequestParam Set<String> city) {
-        Set<String> acceptCities = Set.of("Cluj-Napoca", "Bucuresti", "Timisoara", "Constanta", "Baia-Mare", "Arad");
+    public Mono<List<ForecastAverage>> computeWeatherByCities(@RequestParam Set<String> city) {
+        Set<String> acceptedCities = Set.of("Cluj-Napoca", "Bucuresti", "Timisoara", "Constanta", "Baia-Mare", "Arad");
 
-        Set<String> searchCities = acceptCities.stream()
+        Set<String> queriedCities = acceptedCities.stream()
                 .filter(city::contains)
                 .collect(Collectors.toSet());
 
-        return Flux.fromIterable(searchCities)
-                .flatMap(windAndTemperatureService::fetchTempAndWindData)
-                .map(averageForecastService::computeAverageForecast)
-                .sort(Comparator.comparing(AverageForecast::getCityName))
+        return Flux.fromIterable(queriedCities)
+                .flatMap(forecastClient::fetchForecastForCity)
+                .map(forecastAverageCalculatorService::computeAverageForecast)
+                .sort(Comparator.comparing(ForecastAverage::getCityName))
                 .collectList()
                 .map(forecastCsvWriterService::writeForecastToCsv);
     }

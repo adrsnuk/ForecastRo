@@ -1,6 +1,6 @@
 package com.assign.utilities.service.impl;
 
-import com.assign.utilities.pojo.AverageForecast;
+import com.assign.utilities.pojo.ForecastAverage;
 import com.assign.utilities.service.ForecastCsvWriterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,14 @@ public class ForecastCsvWriterServiceImpl implements ForecastCsvWriterService {
     private final static String FILENAME = "response.csv";
 
     @Override
-    public List<AverageForecast> writeForecastToCsv(List<AverageForecast> averages) {
+    public List<ForecastAverage> writeForecastToCsv(List<ForecastAverage> averages) {
         try (FileWriter fileWriter = new FileWriter(FILENAME, false);
              BufferedWriter bw = new BufferedWriter(fileWriter)) {
 
             log.info("Reset {} file", FILENAME);
             bw.write("Name, temperature, wind\n");
 
-            for (AverageForecast forecastAverage : averages) {
+            for (ForecastAverage forecastAverage : averages) {
                 String csvRow = toCsvRow(forecastAverage);
                 log.info("Append to csv file: " + csvRow);
                 bw.write(csvRow + "\n");
@@ -40,7 +40,7 @@ public class ForecastCsvWriterServiceImpl implements ForecastCsvWriterService {
         return averages;
     }
 
-    private String toCsvRow(AverageForecast forecastAverage) {
+    private String toCsvRow(ForecastAverage forecastAverage) {
         String cityName = forecastAverage.getCityName();
         String temperature = forecastAverage.getTemperature();
         String wind = forecastAverage.getWind();

@@ -8,17 +8,19 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 @ToString
 @NoArgsConstructor
-public class TempAndWindData {
+@AllArgsConstructor
+public class ForecastData {
 
     private String cityName;
     private String temperature;
     private String wind;
     private String description;
-    private List<Forecast> forecast;
+    private List<ForecastDay> forecast;
 
-    public TempAndWindData(String cityName) {
+    public ForecastData(String cityName) {
         this.cityName = cityName;
         this.temperature = "";
         this.wind = "";

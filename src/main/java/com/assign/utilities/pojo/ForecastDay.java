@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Forecast {
+public class ForecastDay {
 
     private String day;
     private String temperature;

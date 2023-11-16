@@ -1,20 +1,20 @@
 package com.assign.utilities.service.impl;
 
-import com.assign.utilities.pojo.AverageForecast;
-import com.assign.utilities.pojo.Forecast;
-import com.assign.utilities.pojo.TempAndWindData;
-import com.assign.utilities.service.AverageForecastService;
+import com.assign.utilities.pojo.ForecastAverage;
+import com.assign.utilities.pojo.ForecastDay;
+import com.assign.utilities.pojo.ForecastData;
+import com.assign.utilities.service.ForecastAverageCalculatorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class AverageForecastServiceImpl implements AverageForecastService {
+public class ForecastAverageCalculatorServiceImpl implements ForecastAverageCalculatorService {
     @Override
-    public AverageForecast computeAverageForecast(TempAndWindData data) {
+    public ForecastAverage computeAverageForecast(ForecastData forecastData) {
         int tempSum = 0, tempCount = 0, windSum = 0, windCount = 0;
 
-        for (Forecast f : data.getForecast()) {
+        for (ForecastDay f : forecastData.getForecast()) {
 
             if (!f.getTemperature().isBlank()) {
                 tempSum += Integer.parseInt(f.getTemperature());
@@ -30,8 +30,8 @@ public class AverageForecastServiceImpl implements AverageForecastService {
         String temperature = tempCount == 0 ? "" : String.valueOf(tempSum / tempCount);
         String wind = windCount == 0 ? "" : String.valueOf(windSum / windCount);
 
-        AverageForecast averageForecast = AverageForecast.builder()
-                .cityName(data.getCityName())
+        ForecastAverage averageForecast = ForecastAverage.builder()
+                .cityName(forecastData.getCityName())
                 .temperature(temperature)
                 .wind(wind)
                 .build();
