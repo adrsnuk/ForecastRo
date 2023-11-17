@@ -49,6 +49,7 @@ Exemplu raspuns:
 ```
 CSV: cu orasele ordonate alfabetic si media temperaturii si a vantului (fisierul o sa fie suprascris cu fiecare apel al API-ului)
 Exemplu raspuns:
+```csv
 Name, temperature, wind
 Arad,needs_to_be_determined
 Baia-Mare,needs_to_be_determined,needs_to_be_determined
@@ -56,7 +57,7 @@ Bucuresti,,
 Cluj-Napoca,needs_to_be_determined,needs_to_be_determined
 Constanta,needs_to_be_determined,needs_to_be_determined
 Timisoara,needs_to_be_determined,needs_to_be_determined
-
+```
 Se va folosi API-ul urmatorul API pentru determinarea temperaturii si vitezei vantului. 
 API : https://998d8129-2264-4a98-a92e-ba8bde4a4d1c.mock.pstmn.io/{city_name}
 SUCCESS Response (200 status code):
@@ -101,7 +102,7 @@ SUCCESS Response (200 status code):
 ```
 Daca nu exista data pentru orasul cautat serverul va returna 404 si valorile pentru media temperaturii si a vantului vor ramane empty
 
-# Postman: 
+# Postman (for both json and csv in response checkout to multi_response branch):
 ![postman](assets/postman.png)
 
 
