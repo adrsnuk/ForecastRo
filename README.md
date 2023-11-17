@@ -102,11 +102,13 @@ SUCCESS Response (200 status code):
 ```
 Daca nu exista data pentru orasul cautat serverul va returna 404 si valorile pentru media temperaturii si a vantului vor ramane empty
 
-# Logs (caught some 429 too many requests):
+# Logs (caught some 429 too many requests)
 ![logs](assets/logs_multi.png)
 
-# Postman (return both json and csv in response): 
+# Postman (return both json and csv in response) 
+(for only json response switch to master branch)
 ![postman](assets/postman_multi.png)
+
 
 
 
