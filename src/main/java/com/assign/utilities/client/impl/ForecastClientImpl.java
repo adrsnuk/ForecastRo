@@ -3,6 +3,7 @@ package com.assign.utilities.client.impl;
 import com.assign.utilities.client.ForecastClient;
 import com.assign.utilities.pojo.ForecastData;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -12,6 +13,9 @@ import java.util.Collections;
 @Slf4j
 @Component
 public class ForecastClientImpl implements ForecastClient {
+
+    @Value("${forecast_api_url}")
+    private String forecast_api_url;
 
     @Override
     public Mono<ForecastData> fetchForecastForCity(String cityName) {
@@ -46,7 +50,7 @@ public class ForecastClientImpl implements ForecastClient {
     }
 
     private String toPath(String cityName) {
-        String path = "https://998d8129-2264-4a98-a92e-ba8bde4a4d1c.mock.pstmn.io/" + cityName;
+        String path = forecast_api_url + cityName;
         log.info("Fetching data from: {}", path);
         return path;
     }

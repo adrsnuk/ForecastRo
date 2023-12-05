@@ -1,5 +1,6 @@
 package com.assign.utilities.controller;
 
+import com.assign.utilities.aop.annotation.WhitelistedCities;
 import com.assign.utilities.client.ForecastClient;
 import com.assign.utilities.pojo.ForecastAverage;
 import com.assign.utilities.service.ForecastAverageCalculatorService;
@@ -25,15 +26,10 @@ public class SolutionController {
     private final ForecastAverageCalculatorService forecastAverageCalculatorService;
 
     private final ForecastCsvWriterService forecastCsvWriterService;
+    @WhitelistedCities
     @GetMapping("/weather")
     public Mono<List<ForecastAverage>> computeWeatherByCities(@RequestParam Set<String> city) {
-        Set<String> acceptedCities = Set.of("Cluj-Napoca", "Bucuresti", "Timisoara", "Constanta", "Baia-Mare", "Arad");
-
-        Set<String> queriedCities = acceptedCities.stream()
-                .filter(city::contains)
-                .collect(Collectors.toSet());
-
-        return Flux.fromIterable(queriedCities)
+        return Flux.fromIterable(city)
                 .flatMap(forecastClient::fetchForecastForCity)
                 .map(forecastAverageCalculatorService::computeAverageForecast)
                 .sort(Comparator.comparing(ForecastAverage::getCityName))
