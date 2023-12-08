@@ -115,4 +115,5 @@ Daca nu exista data pentru orasul cautat serverul va returna 404 si valorile pen
 
 # ASYNC CSV WRITING
 [async csv demo.mp4](assets%2Fasync%20csv%20demo.mp4)
-[async csv demo.webm](assets%2Fasync%20csv%20demo.webm)
+[async csv demo.webm](assets%2Fasync%20csv%20demo.webm.mov)
+[async csv demo.mov](assets%2Fasync%20csv%20demo.mov)
