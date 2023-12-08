@@ -13,7 +13,6 @@ import reactor.core.publisher.Mono;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -34,6 +33,6 @@ public class SolutionController {
                 .map(forecastAverageCalculatorService::computeAverageForecast)
                 .sort(Comparator.comparing(ForecastAverage::getCityName))
                 .collectList()
-                .map(forecastCsvWriterService::writeForecastToCsv);
+                .flatMap(forecastCsvWriterService::writeAsync);
     }
 }

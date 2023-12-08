@@ -4,6 +4,7 @@ import com.assign.utilities.pojo.ForecastAverage;
 import com.assign.utilities.service.ForecastCsvWriterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -16,28 +17,41 @@ public class ForecastCsvWriterServiceImpl implements ForecastCsvWriterService {
 
     private final static String FILENAME = "response.csv";
 
-    @Override
-    public List<ForecastAverage> writeForecastToCsv(List<ForecastAverage> averages) {
-        try (FileWriter fileWriter = new FileWriter(FILENAME, false);
-             BufferedWriter bw = new BufferedWriter(fileWriter)) {
+    public Mono<List<ForecastAverage>> writeAsync(List<ForecastAverage> averages) {
+        return Mono.just(averages)
+                .doAfterTerminate(() -> writeForecastToCsv(averages));
+    }
 
-            log.info("Reset {} file", FILENAME);
-            bw.write("Name, temperature, wind\n");
+    public void writeForecastToCsv(List<ForecastAverage> averages) {
+        Mono.fromRunnable(() -> {
 
-            for (ForecastAverage forecastAverage : averages) {
-                String csvRow = toCsvRow(forecastAverage);
-                log.info("Append to csv file: " + csvRow);
-                bw.write(csvRow + "\n");
+            try (FileWriter fileWriter = new FileWriter(FILENAME, false);
+                 BufferedWriter bw = new BufferedWriter(fileWriter)) {
+
+                log.info("Reset {} file", FILENAME);
+                bw.write("Name, temperature, wind\n");
+
+                for (ForecastAverage forecastAverage : averages) {
+
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    String csvRow = toCsvRow(forecastAverage);
+                    log.info("Append to csv file: " + csvRow);
+                    bw.write(csvRow + "\n");
+                }
+
+                bw.flush();
+
+            } catch (IOException e) {
+                log.info("\nError writing to response.csv!");
+                e.printStackTrace();
             }
 
-            bw.flush();
-
-        } catch (IOException e) {
-            log.info("\nError writing to response.csv!");
-            e.printStackTrace();
-        }
-
-        return averages;
+        }).subscribe();
     }
 
     private String toCsvRow(ForecastAverage forecastAverage) {
